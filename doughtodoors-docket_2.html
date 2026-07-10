@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dough to Doors — Home Bakery, Kolkata</title>
+<meta name="description" content="Dough to Doors — a Kolkata home bakery. Chiffon cakes, Swiss rolls, Japanese cheesecake and soft fluffy breads, baked fresh on order. Order on WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Courier+Prime:wght@400;700&family=Karla:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --espresso:#211510;      /* page ground — dark roast */
+  --espresso-2:#2c1d14;
+  --kraft:#c49a63;         /* kraft paper */
+  --kraft-deep:#a87f4c;
+  --paper:#f6eedd;         /* receipt paper */
+  --ink:#2a1a0e;           /* baker's ink */
+  --stamp:#c1352a;         /* lacquer / hanko red */
+  --butter:#e8c079;        /* toasted gold accent */
+  --disp:'Fraunces', serif;
+  --jp:'Noto Serif JP', serif;
+  --mono:'Courier Prime', monospace;
+  --body:'Karla', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  background:var(--espresso);
+  color:var(--paper);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+/* subtle seigaiha (blue-sea-wave) pattern on the dark ground */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cg fill='none' stroke='%23f6eedd' stroke-opacity='0.06' stroke-width='1.5'%3E%3Cpath d='M0 40a40 40 0 0 1 80 0'/%3E%3Cpath d='M8 40a32 32 0 0 1 64 0'/%3E%3Cpath d='M16 40a24 24 0 0 1 48 0'/%3E%3Cpath d='M-40 0a40 40 0 0 1 80 0M40 0a40 40 0 0 1 80 0'/%3E%3Cpath d='M-32 0a32 32 0 0 1 64 0M48 0a32 32 0 0 1 64 0'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:80px 40px;
+}
+::selection{background:var(--stamp);color:var(--paper)}
+a{color:inherit}
+img{max-width:100%}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- utility ---------- */
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--butter);
+}
+.section{padding:88px 0}
+h2.sec-title{
+  font-family:var(--disp);font-weight:900;font-size:clamp(1.9rem,4.5vw,3rem);
+  line-height:1.08;margin:.35em 0 .6em;
+}
+
+/* ---------- stamp component ---------- */
+.stamp{
+  display:inline-block;font-family:'Courier Prime','Noto Serif JP',monospace;font-weight:700;font-size:.7rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--stamp);
+  border:2px solid var(--stamp);border-radius:6px;padding:.45em 1em;
+  transform:rotate(-4deg);
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.7' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 .4 1 1 1 1 1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='120' height='40' filter='url(%23n)'/%3E%3C/svg%3E");
+  mask-size:cover;
+}
+.stamp.gold{color:var(--butter);border-color:var(--butter)}
+
+/* ---------- hanko seal (Japanese name stamp) ---------- */
+.hanko{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:58px;height:58px;border-radius:50%;
+  border:2.5px solid var(--stamp);color:var(--stamp);
+  font-family:var(--jp);font-weight:900;font-size:1.45rem;line-height:1;
+  transform:rotate(-6deg);
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 .5 1 1 1 1 1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)'/%3E%3C/svg%3E");
+  mask-size:cover;
+}
+.jp-sub{
+  font-family:var(--jp);font-weight:500;font-size:.82rem;letter-spacing:.32em;
+  color:rgba(246,238,221,.65);
+}
+.jp-accent{font-family:var(--jp);font-weight:700;color:var(--butter)}
+.vert-jp{
+  position:absolute;right:20px;top:110px;
+  writing-mode:vertical-rl;text-orientation:upright;
+  font-family:var(--jp);font-weight:500;font-size:.85rem;letter-spacing:.45em;
+  color:rgba(246,238,221,.35);user-select:none;pointer-events:none;
+}
+@media(max-width:1180px){.vert-jp{display:none}}
+
+/* ---------- nav ---------- */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(33,21,16,.92);backdrop-filter:blur(10px);
+  border-bottom:1px dashed rgba(246,238,221,.25);
+}
+.nav-inner{
+  max-width:1100px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.logo{
+  font-family:var(--disp);font-weight:900;font-size:1.35rem;text-decoration:none;
+  color:var(--paper);white-space:nowrap;display:flex;flex-direction:column;line-height:1.1;
+}
+.logo em{font-style:italic;font-weight:400;color:var(--butter)}
+.logo .kana{
+  font-family:var(--jp);font-weight:500;font-size:.55rem;letter-spacing:.34em;
+  color:rgba(246,238,221,.55);
+}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{
+  text-decoration:none;font-size:.9rem;font-weight:500;color:rgba(246,238,221,.8);
+  transition:color .2s;
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--butter)}
+.nav-order{
+  font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--stamp);color:var(--paper);
+  border:none;border-radius:4px;padding:.7em 1.1em;text-decoration:none;
+  transition:transform .15s, background .2s;
+}
+.nav-order:hover{background:#c94a30;transform:rotate(-2deg)}
+@media(max-width:760px){.nav-links{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:96px 0 110px;position:relative}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{
+  font-family:var(--disp);font-weight:900;
+  font-size:clamp(2.9rem,7.5vw,5.4rem);line-height:.98;letter-spacing:-.01em;
+  margin:20px 0 22px;
+}
+.hero h1 .to{
+  font-style:italic;font-weight:400;color:var(--butter);
+  font-size:.55em;vertical-align:.25em;padding:0 .1em;
+}
+.hero p.lede{max-width:44ch;color:rgba(246,238,221,.82);font-size:1.06rem}
+.hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn-primary{
+  font-family:var(--mono);font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  font-size:.85rem;background:var(--stamp);color:var(--paper);border:none;border-radius:4px;
+  padding:1em 1.5em;text-decoration:none;display:inline-block;
+  box-shadow:4px 4px 0 rgba(0,0,0,.4);
+  transition:transform .15s, box-shadow .15s;
+}
+.btn-primary:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,.4)}
+.btn-ghost{
+  font-family:var(--mono);font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  font-size:.85rem;background:transparent;color:var(--paper);
+  border:1.5px dashed rgba(246,238,221,.5);border-radius:4px;
+  padding:1em 1.5em;text-decoration:none;display:inline-block;transition:border-color .2s,color .2s;
+}
+.btn-ghost:hover{border-color:var(--butter);color:var(--butter)}
+
+/* hero docket — a pinned kraft delivery tag */
+.docket{
+  background:linear-gradient(160deg,var(--kraft),var(--kraft-deep));
+  color:var(--ink);border-radius:8px;padding:34px 30px 30px;
+  transform:rotate(2.5deg);position:relative;
+  box-shadow:0 24px 50px rgba(0,0,0,.55);
+  max-width:380px;justify-self:center;width:100%;
+}
+.docket::before{ /* punched hole + twine */
+  content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:14px;height:14px;border-radius:50%;
+  background:var(--espresso);box-shadow:inset 0 0 0 3px rgba(42,26,14,.5);
+}
+.docket .d-head{
+  text-align:center;font-family:var(--mono);font-weight:700;font-size:.72rem;
+  letter-spacing:.24em;text-transform:uppercase;
+  border-bottom:1.5px dashed var(--ink);padding:16px 0 12px;margin-bottom:14px;
+}
+.docket dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-family:var(--mono);font-size:.86rem}
+.docket dt{font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem;align-self:center}
+.docket dd{border-bottom:1px dotted rgba(42,26,14,.5);padding-bottom:2px}
+.docket .d-stamp{
+  position:absolute;right:-14px;bottom:26px;transform:rotate(8deg);
+  background:transparent;
+}
+.docket .d-note{margin-top:16px;font-size:.8rem;font-family:var(--mono);opacity:.85;text-align:center}
+
+/* ---------- speciality tags ---------- */
+#speciality{background:var(--espresso-2);border-top:1px dashed rgba(246,238,221,.18);border-bottom:1px dashed rgba(246,238,221,.18)}
+.tag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px;margin-top:14px}
+.tag{
+  background:var(--paper);color:var(--ink);border-radius:6px;
+  padding:26px 22px 22px;position:relative;
+  box-shadow:0 14px 30px rgba(0,0,0,.45);
+  transition:transform .2s;
+}
+.tag:nth-child(odd){transform:rotate(-1.3deg)}
+.tag:nth-child(even){transform:rotate(1.1deg)}
+.tag:hover{transform:rotate(0) translateY(-6px)}
+.tag::before{
+  content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(1deg);
+  width:74px;height:20px;background:rgba(196,154,99,.55);
+  border-left:1px solid rgba(42,26,14,.15);border-right:1px solid rgba(42,26,14,.15);
+}
+.tag .art{height:86px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.tag .art svg{height:80px;width:auto;stroke:var(--ink);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.tag h3{font-family:var(--disp);font-weight:900;font-size:1.25rem;line-height:1.15}
+.tag .kana{
+  display:block;font-family:var(--jp);font-weight:500;font-size:.68rem;
+  letter-spacing:.26em;color:var(--stamp);margin-top:3px;
+}
+.tag p{font-size:.9rem;margin:8px 0 14px;color:rgba(42,26,14,.8)}
+.tag .price{
+  font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.06em;
+  color:var(--stamp);text-transform:uppercase;
+}
+
+/* ---------- menu / price list ---------- */
+.menu-layout{display:grid;grid-template-columns:1fr 360px;gap:44px;align-items:start;margin-top:10px}
+@media(max-width:920px){.menu-layout{grid-template-columns:1fr}}
+.menu-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 26px}
+.menu-tabs button{
+  font-family:var(--mono);font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:rgba(246,238,221,.7);
+  border:1.5px solid rgba(246,238,221,.35);border-radius:999px;padding:.55em 1.1em;
+  transition:all .18s;
+}
+.menu-tabs button.on{background:var(--butter);border-color:var(--butter);color:var(--ink)}
+.menu-cat{margin-bottom:34px}
+.menu-cat h3{
+  font-family:var(--disp);font-weight:600;font-style:italic;font-size:1.35rem;
+  color:var(--butter);margin-bottom:4px;
+}
+.menu-cat .cat-jp{
+  font-family:var(--jp);font-style:normal;font-weight:500;font-size:.62em;
+  letter-spacing:.24em;color:rgba(246,238,221,.55);margin-left:.5em;
+}
+.menu-cat .cat-note{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:rgba(246,238,221,.55);text-transform:uppercase;margin-bottom:14px}
+.mrow{
+  display:flex;align-items:baseline;gap:10px;padding:9px 0;
+  border-bottom:1px dotted rgba(246,238,221,.22);
+}
+.mrow .nm{font-weight:500}
+.mrow .dots{flex:1;border-bottom:1.5px dotted rgba(246,238,221,.3);transform:translateY(-4px)}
+.mrow .pr{font-family:var(--mono);font-weight:700;color:var(--butter);white-space:nowrap}
+.mrow .add{
+  font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.06em;
+  background:transparent;color:var(--stamp);border:1.5px solid var(--stamp);
+  border-radius:4px;padding:.3em .7em;transition:all .15s;white-space:nowrap;
+}
+.mrow .add:hover{background:var(--stamp);color:var(--paper);transform:rotate(-2deg)}
+.mrow .add.added{background:var(--stamp);color:var(--paper)}
+
+/* ---------- the order slip (signature element) ---------- */
+.slip-wrap{position:sticky;top:84px}
+.slip{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--mono);
+  padding:26px 22px 30px;position:relative;
+  box-shadow:0 20px 44px rgba(0,0,0,.55);
+  /* perforated receipt edges */
+  --notch:12px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    radial-gradient(circle at 50% 0, transparent 0, transparent 5px, #000 5.5px) top/var(--notch) 10px repeat-x,
+    radial-gradient(circle at 50% 100%, transparent 0, transparent 5px, #000 5.5px) bottom/var(--notch) 10px repeat-x;
+  mask:
+    radial-gradient(circle 6px at 6px 0, transparent 95%, #000) top left/var(--notch) 12px repeat-x,
+    linear-gradient(#000, #000) 0 12px/100% calc(100% - 24px) no-repeat,
+    radial-gradient(circle 6px at 6px 100%, transparent 95%, #000) bottom left/var(--notch) 12px repeat-x;
+}
+.slip h3{
+  text-align:center;font-size:.95rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  padding-bottom:12px;margin-bottom:6px;border-bottom:2px dashed var(--ink);
+}
+.slip .meta{
+  display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.05em;
+  padding:8px 0 12px;border-bottom:1px dashed rgba(42,26,14,.5);text-transform:uppercase;
+}
+.slip-items{list-style:none;min-height:96px;padding:12px 0;border-bottom:2px dashed var(--ink)}
+.slip-empty{font-size:.82rem;text-align:center;opacity:.6;padding:26px 8px;line-height:1.5}
+.slip-items li{
+  display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;
+  font-size:.84rem;padding:5px 0;
+}
+.slip-items .qty{display:flex;align-items:center;gap:5px}
+.slip-items .qty button{
+  width:20px;height:20px;line-height:1;border:1.5px solid var(--ink);background:transparent;
+  border-radius:3px;font-family:var(--mono);font-weight:700;font-size:.8rem;color:var(--ink);
+}
+.slip-items .qty button:hover{background:var(--ink);color:var(--paper)}
+.slip-items .inm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slip-items .ipr{font-weight:700;white-space:nowrap}
+.slip .total{
+  display:flex;justify-content:space-between;font-weight:700;font-size:1rem;
+  padding:14px 0 6px;letter-spacing:.05em;text-transform:uppercase;
+}
+.slip .wa-send{
+  display:flex;align-items:center;justify-content:center;gap:9px;width:100%;
+  margin-top:14px;background:#1fa855;color:#fff;border:none;border-radius:5px;
+  font-family:var(--mono);font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:1em;text-decoration:none;transition:transform .15s, background .2s;
+}
+.slip .wa-send:hover{background:#23bd60;transform:translateY(-2px)}
+.slip .wa-send[aria-disabled="true"]{background:#9aa;cursor:not-allowed;transform:none}
+.slip .clear{
+  display:block;margin:12px auto 0;background:none;border:none;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(42,26,14,.6);
+  text-decoration:underline;
+}
+.slip .verify{
+  margin-top:16px;font-size:.68rem;line-height:1.5;text-align:center;color:var(--stamp);
+  border:1.5px solid var(--stamp);border-radius:4px;padding:.6em .8em;transform:rotate(-.6deg);
+}
+
+/* mobile slip drawer */
+.slip-fab{display:none}
+@media(max-width:920px){
+  .slip-wrap{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:70;
+    transform:translateY(110%);transition:transform .3s ease;padding:0 14px 14px;}
+  .slip-wrap.open{transform:translateY(0)}
+  .slip{max-height:72vh;overflow-y:auto}
+  .slip-fab{
+    display:flex;align-items:center;gap:10px;position:fixed;right:16px;bottom:16px;z-index:69;
+    background:var(--stamp);color:var(--paper);border:none;border-radius:999px;
+    font-family:var(--mono);font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:.9em 1.3em;box-shadow:0 10px 26px rgba(0,0,0,.5);
+  }
+  .slip-fab .count{
+    background:var(--paper);color:var(--stamp);border-radius:999px;
+    min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;
+    font-size:.75rem;
+  }
+  .slip-close{display:block;margin:0 auto 8px;background:var(--paper);color:var(--ink);
+    border:none;border-radius:999px;font-family:var(--mono);font-weight:700;font-size:.72rem;
+    letter-spacing:.1em;text-transform:uppercase;padding:.5em 1.2em;}
+}
+@media(min-width:921px){.slip-close{display:none}}
+
+/* ---------- reviews ---------- */
+#reviews{background:var(--espresso-2);border-top:1px dashed rgba(246,238,221,.18);border-bottom:1px dashed rgba(246,238,221,.18)}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:12px}
+.rev{
+  border:1.5px dashed rgba(246,238,221,.35);border-radius:8px;padding:24px;
+  position:relative;background:rgba(246,238,221,.03);
+}
+.rev q{font-family:var(--disp);font-style:italic;font-size:1.05rem;line-height:1.5;quotes:"“" "”"}
+.rev .who{margin-top:14px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--butter)}
+.rev .grade{
+  position:absolute;top:-12px;right:16px;background:var(--espresso-2);padding:0 6px;
+}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:820px){.about-grid{grid-template-columns:1fr}}
+.about-grid p{color:rgba(246,238,221,.85);margin-bottom:14px;max-width:52ch}
+.oven{
+  aspect-ratio:1/1;max-width:360px;width:100%;justify-self:center;border-radius:10px;position:relative;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 78%, rgba(232,192,121,.5), transparent 70%),
+    radial-gradient(ellipse 55% 32% at 50% 80%, rgba(176,58,36,.35), transparent 70%),
+    linear-gradient(180deg,#180f0a,#241710);
+  border:1px solid rgba(246,238,221,.15);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:26px;
+}
+.oven span{font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--butter)}
+.oven::before{
+  content:"";position:absolute;left:14%;right:14%;bottom:23%;height:3px;background:rgba(246,238,221,.35);
+  box-shadow:0 -26px 0 rgba(246,238,221,.22), 0 -52px 0 rgba(246,238,221,.12);
+}
+
+/* ---------- order / contact ---------- */
+#order .card{
+  background:linear-gradient(160deg,var(--kraft),var(--kraft-deep));color:var(--ink);
+  border-radius:10px;padding:48px 40px;text-align:center;position:relative;
+  box-shadow:0 24px 50px rgba(0,0,0,.5);
+}
+#order h2{color:var(--ink)}
+#order p{max-width:52ch;margin:0 auto 24px;color:rgba(42,26,14,.85)}
+.wa-big{
+  display:inline-flex;align-items:center;gap:10px;background:#1fa855;color:#fff;
+  font-family:var(--mono);font-weight:700;font-size:.95rem;letter-spacing:.05em;
+  border-radius:6px;padding:1em 1.6em;text-decoration:none;text-transform:uppercase;
+  box-shadow:4px 4px 0 rgba(0,0,0,.3);transition:transform .15s, box-shadow .15s;
+}
+.wa-big:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,.3)}
+#order .warn{
+  margin-top:22px;font-family:var(--mono);font-size:.74rem;color:var(--stamp);font-weight:700;
+}
+
+/* ---------- footer ---------- */
+footer{padding:56px 0 40px;border-top:1px dashed rgba(246,238,221,.2)}
+.foot-inner{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap;list-style:none}
+.foot-links a{font-size:.85rem;color:rgba(246,238,221,.7);text-decoration:none}
+.foot-links a:hover{color:var(--butter)}
+.foot-copy{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:rgba(246,238,221,.5)}
+
+/* ---------- reveal on scroll ---------- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+:focus-visible{outline:2px solid var(--butter);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#top"><span>dough<em>to</em>doors</span><span class="kana">ドウ・トゥ・ドアーズ</span></a>
+    <ul class="nav-links">
+      <li><a href="#speciality">Speciality</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#about">Our Kitchen</a></li>
+    </ul>
+    <a class="nav-order" href="#menu">Start an order slip</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <span class="vert-jp" aria-hidden="true">手作りケーキ・コルカタ</span>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Home bakery · Kolkata · 焼きたて fresh on order</span>
+      <h1>Dough <span class="to">to</span> Doors</h1>
+      <p class="jp-sub" style="margin:-6px 0 18px">ドウ・トゥ・ドアーズ — 手作りケーキ · コルカタ</p>
+      <p class="lede">Cloud-soft Asian bakes made in a home kitchen and hand-delivered across Kolkata. Chiffon cakes, Swiss rolls, jiggly Japanese cheesecake and fluffy breads — every order slip written by hand, every box sealed for your door.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#menu">Fill your order slip</a>
+        <a class="btn-ghost" href="https://instagram.com/doughtodoors" target="_blank" rel="noopener">@doughtodoors ↗</a>
+      </div>
+    </div>
+
+    <aside class="docket rv" aria-label="Sample delivery docket">
+      <div class="d-head">配達伝票 · Delivery Docket · No. 0001</div>
+      <dl>
+        <dt>From</dt><dd>Dough to Doors Kitchen</dd>
+        <dt>To</dt><dd>Your door, Kolkata</dd>
+        <dt>Bakes</dt><dd>Fresh on order only</dd>
+        <dt>Order via</dt><dd>WhatsApp 74397 28848</dd>
+        <dt>Lead time</dt><dd>Ask us — most bakes 24–48 h</dd>
+      </dl>
+      <span class="hanko d-stamp" title="Baked — our seal">焼</span>
+      <p class="d-note">✂ keep this tag — our red seal means it's really ours</p>
+    </aside>
+  </div>
+</header>
+
+<!-- ============ SPECIALITY ============ -->
+<section class="section" id="speciality">
+  <div class="wrap">
+    <span class="eyebrow">名物 · What we're known for</span>
+    <h2 class="sec-title">The house specialities <span class="jp-accent" style="font-size:.5em;vertical-align:middle">— 自家製</span></h2>
+    <div class="tag-grid">
+
+      <article class="tag rv">
+        <div class="art" aria-hidden="true">
+          <!-- chiffon: tall airy slice -->
+          <svg viewBox="0 0 100 90"><path d="M20 70 L34 18 Q50 10 66 18 L80 70 Z"/><path d="M28 44 Q50 38 72 44"/><path d="M24 58 Q50 52 76 58"/><circle cx="44" cy="30" r="1.6" fill="currentColor"/><circle cx="56" cy="34" r="1.6" fill="currentColor"/></svg>
+        </div>
+        <h3>Chiffon Cakes<span class="kana">シフォンケーキ</span></h3>
+        <p>Perfectly airy, cloud-light chiffon in over ten flavours — baked tall and never dry.</p>
+        <span class="price">From ₹800</span>
+      </article>
+
+      <article class="tag rv">
+        <div class="art" aria-hidden="true">
+          <!-- swiss roll: spiral -->
+          <svg viewBox="0 0 100 90"><path d="M50 45 m0 -3 a3 3 0 1 1 -3 3 a6 6 0 1 0 6 -6 a12 12 0 1 0 12 12 a20 20 0 1 1 -20 -20 a28 28 0 1 0 28 28"/><path d="M22 73 h56"/></svg>
+        </div>
+        <h3>Swiss Rolls<span class="kana">スイスロール</span></h3>
+        <p>Pillow-soft 8-inch rolls wrapped around seasonal cream fillings.</p>
+        <span class="price">From ₹1250</span>
+      </article>
+
+      <article class="tag rv">
+        <div class="art" aria-hidden="true">
+          <!-- japanese cheesecake: jiggly dome -->
+          <svg viewBox="0 0 100 90"><path d="M18 68 Q18 26 50 26 Q82 26 82 68 Z"/><path d="M28 68 Q28 36 50 36 Q72 36 72 68" opacity=".45"/><path d="M40 18 q2 -6 0 -10 M52 18 q2 -6 0 -10 M64 18 q2 -6 0 -10" opacity=".7"/><path d="M14 68 h72"/></svg>
+        </div>
+        <h3>Japanese Cheesecake<span class="kana">チーズケーキ</span></h3>
+        <p>Our signature — jiggly, cloud-soft and barely sweet. Plain or topped.</p>
+        <span class="price">From ₹850</span>
+      </article>
+
+      <article class="tag rv">
+        <div class="art" aria-hidden="true">
+          <!-- bread: bun trio -->
+          <svg viewBox="0 0 100 90"><path d="M14 66 Q14 44 33 44 Q52 44 52 66 Z"/><path d="M48 66 Q48 40 68 40 Q88 40 88 66 Z"/><path d="M26 56 l6 -6 M62 52 l7 -7 M72 56 l6 -6"/><path d="M10 66 h84"/></svg>
+        </div>
+        <h3>Soft Fluffy Breads<span class="kana">ふわふわパン</span></h3>
+        <p>Asian-style milk breads and filled buns, baked fresh the morning of delivery.</p>
+        <span class="price">From ₹130</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU + ORDER SLIP ============ -->
+<section class="section" id="menu">
+  <div class="wrap">
+    <span class="eyebrow">お品書き · Price list</span>
+    <h2 class="sec-title">The menu — tap to add to your slip</h2>
+
+    <div class="menu-layout">
+      <div>
+        <div class="menu-tabs" role="tablist" aria-label="Menu categories">
+          <button class="on" data-cat="all">All</button>
+          <button data-cat="chiffon">Chiffon</button>
+          <button data-cat="rolls">Swiss Rolls</button>
+          <button data-cat="cheesecake">Cheesecake</button>
+          <button data-cat="breads">Breads</button>
+        </div>
+        <div id="menu-list"><!-- rendered by JS --></div>
+      </div>
+
+      <!-- signature: the order slip -->
+      <div class="slip-wrap" id="slipWrap">
+        <button class="slip-close" id="slipClose">Close ✕</button>
+        <div class="slip" aria-live="polite">
+          <h3>注文票 · Order Slip</h3>
+          <div class="meta"><span>Dough to Doors</span><span id="slipDate"></span></div>
+          <ul class="slip-items" id="slipItems">
+            <li class="slip-empty">Nothing on the slip yet.<br>Tap <strong>+ add</strong> beside any bake.</li>
+          </ul>
+          <div class="total"><span>Total</span><span id="slipTotal">₹0</span></div>
+          <a class="wa-send" id="waSend" href="#" aria-disabled="true" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.987.546 3.845 1.493 5.432L2.088 21.98a1 1 0 0 0 1.225 1.25l4.024-1.106A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 0 1-4.062-1.112l-.29-.172-2.387.656.634-2.316-.19-.302A7.96 7.96 0 0 1 4 12a8 8 0 1 1 8 8z"/></svg>
+            Send order on WhatsApp
+          </a>
+          <button class="clear" id="slipClear">Clear slip</button>
+          <p class="verify">⚠ Only order from +91 74397 28848 — other numbers are not affiliated with us.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="slip-fab" id="slipFab" aria-label="Open order slip">🧾 Slip <span class="count" id="fabCount">0</span></button>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section" id="reviews">
+  <div class="wrap">
+    <span class="eyebrow">お客様の声 · From our regulars</span>
+    <h2 class="sec-title">Word around the neighbourhood</h2>
+    <div class="rev-grid">
+      <blockquote class="rev rv">
+        <span class="grade stamp gold">常連 · Regular</span>
+        <q>The Japanese cheesecake actually jiggles. Lighter than anything we've had from a shop.</q>
+        <div class="who">— Repeat customer, Kolkata</div>
+      </blockquote>
+      <blockquote class="rev rv">
+        <span class="grade stamp gold">誕生日 · Birthday</span>
+        <q>Ordered a pandan chiffon for my mother's birthday — gone in one sitting. Delivery was right on time.</q>
+        <div class="who">— WhatsApp order</div>
+      </blockquote>
+      <blockquote class="rev rv">
+        <span class="grade stamp gold">毎週 · Weekly</span>
+        <q>We get the milk bread every week now. It's still warm when it reaches our door.</q>
+        <div class="who">— Neighbourhood regular</div>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <span class="eyebrow">私たちの台所 · Our kitchen</span>
+      <h2 class="sec-title">Baked at home, made for yours</h2>
+      <p>Dough to Doors started in a home kitchen in Kolkata with one oven and a soft spot for Asian-style bakes — the airy chiffons, jiggly cheesecakes and pillowy breads that are hard to find done right here.</p>
+      <p>Nothing sits on a shelf. Every bake starts only after your order slip comes in, so what reaches your door was in the oven hours before — not days.</p>
+      <p>Have a flavour in mind or a date to plan around? Message us on WhatsApp and we'll write you into the baking schedule.</p>
+    </div>
+    <div class="oven rv" aria-hidden="true"><span>焼きたて · oven light on</span></div>
+  </div>
+</section>
+
+<!-- ============ ORDER ============ -->
+<section class="section" id="order">
+  <div class="wrap">
+    <div class="card rv">
+      <span class="eyebrow" style="color:var(--stamp)">ご注文はこちら · Ready when you are</span>
+      <h2 class="sec-title">Place your order</h2>
+      <p>Fill your order slip from the menu above and send it in one tap — or just message us directly and we'll take it from there.</p>
+      <a class="wa-big" href="https://wa.me/917439728848?text=Hi!%20I'd%20like%20to%20place%20an%20order%20from%20Dough%20to%20Doors%20%F0%9F%8D%B0" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.987.546 3.845 1.493 5.432L2.088 21.98a1 1 0 0 0 1.225 1.25l4.024-1.106A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 0 1-4.062-1.112l-.29-.172-2.387.656.634-2.316-.19-.302A7.96 7.96 0 0 1 4 12a8 8 0 1 1 8 8z"/></svg>
+        WhatsApp: +91 74397 28848
+      </a>
+      <p class="warn">⚠ Only order from +91 74397 28848 — other numbers are not affiliated with us.</p>
+      <span class="hanko" style="position:absolute;top:22px;right:26px;transform:rotate(7deg)" title="Our seal">印</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <a class="logo" href="#top"><span>dough<em>to</em>doors</span><span class="kana">ドウ・トゥ・ドアーズ</span></a>
+    <ul class="foot-links">
+      <li><a href="#speciality">Speciality</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="https://instagram.com/doughtodoors" target="_blank" rel="noopener">@doughtodoors ↗</a></li>
+    </ul>
+    <span class="foot-copy">© 2026 Dough to Doors · Kolkata · +91 74397 28848</span>
+  </div>
+</footer>
+
+<script>
+/* ============ menu data ============ */
+const MENU = [
+  {cat:'chiffon', title:'Chiffon Cakes', jp:'シフォンケーキ', note:'Airy & tall · 10+ flavours', items:[
+    ['Classic Vanilla Chiffon', 800],
+    ['Orange Chiffon', 800],
+    ['Chocolate Chiffon', 850],
+    ['Coffee Chiffon', 850],
+    ['Pandan Chiffon', 850],
+    ['Matcha Chiffon', 900],
+  ]},
+  {cat:'rolls', title:'Swiss Rolls', jp:'スイスロール', note:'Soft 8-inch rolls · seasonal fillings', items:[
+    ['Classic Vanilla Cream Roll', 1250],
+    ['Chocolate Cream Roll', 1300],
+    ['Mango Cream Roll (seasonal)', 1350],
+    ['Matcha Cream Roll', 1400],
+  ]},
+  {cat:'cheesecake', title:'Japanese Cheesecake', jp:'チーズケーキ', note:'Signature jiggly bake', items:[
+    ['Plain Japanese Cheesecake', 850],
+    ['Berry-Topped Cheesecake', 1250],
+    ['Caramel-Topped Cheesecake', 1250],
+  ]},
+  {cat:'breads', title:'Soft Fluffy Breads', jp:'ふわふわパン', note:'Baked fresh on delivery morning', items:[
+    ['Butter Bun', 130],
+    ['Cream-Filled Bun', 150],
+    ['Chocolate Bun', 160],
+    ['Garlic Cheese Bun', 180],
+    ['Milk Bread Loaf', 250],
+  ]},
+];
+
+const WA_NUMBER = '917439728848';
+const fmt = n => '₹' + n.toLocaleString('en-IN');
+const slip = new Map(); // name -> {price, qty}
+
+/* ============ render menu ============ */
+const menuList = document.getElementById('menu-list');
+function renderMenu(filter='all'){
+  menuList.innerHTML = '';
+  MENU.filter(c => filter==='all' || c.cat===filter).forEach(c=>{
+    const sec = document.createElement('div');
+    sec.className = 'menu-cat';
+    sec.innerHTML = `<h3>${c.title} <span class="cat-jp">${c.jp}</span></h3><div class="cat-note">${c.note}</div>`;
+    c.items.forEach(([name, price])=>{
+      const row = document.createElement('div');
+      row.className = 'mrow';
+      row.innerHTML = `<span class="nm">${name}</span><span class="dots"></span>
+        <span class="pr">${fmt(price)}</span>`;
+      const btn = document.createElement('button');
+      btn.className = 'add';
+      btn.textContent = '+ add';
+      btn.setAttribute('aria-label', `Add ${name} to order slip`);
+      btn.onclick = ()=>{ addItem(name, price); flash(btn); };
+      row.appendChild(btn);
+      sec.appendChild(row);
+    });
+    menuList.appendChild(sec);
+  });
+}
+function flash(btn){
+  btn.classList.add('added'); btn.textContent = '✓ added';
+  setTimeout(()=>{ btn.classList.remove('added'); btn.textContent = '+ add'; }, 900);
+}
+
+/* tabs */
+document.querySelectorAll('.menu-tabs button').forEach(b=>{
+  b.onclick = ()=>{
+    document.querySelectorAll('.menu-tabs button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    renderMenu(b.dataset.cat);
+  };
+});
+
+/* ============ order slip ============ */
+const slipItems = document.getElementById('slipItems');
+const slipTotal = document.getElementById('slipTotal');
+const waSend = document.getElementById('waSend');
+const fabCount = document.getElementById('fabCount');
+
+function addItem(name, price){
+  const cur = slip.get(name) || {price, qty:0};
+  cur.qty++; slip.set(name, cur);
+  renderSlip();
+}
+function changeQty(name, delta){
+  const cur = slip.get(name); if(!cur) return;
+  cur.qty += delta;
+  if(cur.qty <= 0) slip.delete(name);
+  renderSlip();
+}
+function renderSlip(){
+  slipItems.innerHTML = '';
+  let total = 0, count = 0;
+  if(slip.size === 0){
+    slipItems.innerHTML = '<li class="slip-empty">Nothing on the slip yet.<br>Tap <strong>+ add</strong> beside any bake.</li>';
+  } else {
+    slip.forEach((v, name)=>{
+      total += v.price * v.qty; count += v.qty;
+      const li = document.createElement('li');
+      const qty = document.createElement('span');
+      qty.className = 'qty';
+      const minus = document.createElement('button'); minus.textContent='−';
+      minus.setAttribute('aria-label',`Remove one ${name}`);
+      minus.onclick = ()=>changeQty(name,-1);
+      const num = document.createElement('span'); num.textContent = v.qty;
+      const plus = document.createElement('button'); plus.textContent='+';
+      plus.setAttribute('aria-label',`Add one more ${name}`);
+      plus.onclick = ()=>changeQty(name,1);
+      qty.append(minus,num,plus);
+      const nm = document.createElement('span'); nm.className='inm'; nm.textContent = name;
+      const pr = document.createElement('span'); pr.className='ipr'; pr.textContent = fmt(v.price*v.qty);
+      li.append(qty,nm,pr);
+      slipItems.appendChild(li);
+    });
+  }
+  slipTotal.textContent = fmt(total);
+  fabCount.textContent = count;
+  if(slip.size){
+    const lines = [...slip.entries()].map(([n,v])=>`• ${n} × ${v.qty} — ${fmt(v.price*v.qty)}`);
+    const msg = `Hi! I'd like to place an order from Dough to Doors 🍰\n\n${lines.join('\n')}\n\nTotal: ${fmt(total)}\n\nName:\nDelivery address:\nPreferred date:`;
+    waSend.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    waSend.setAttribute('aria-disabled','false');
+  } else {
+    waSend.href = '#menu';
+    waSend.setAttribute('aria-disabled','true');
+  }
+}
+waSend.addEventListener('click', e=>{
+  if(waSend.getAttribute('aria-disabled')==='true') e.preventDefault();
+});
+document.getElementById('slipClear').onclick = ()=>{ slip.clear(); renderSlip(); };
+
+/* slip date */
+document.getElementById('slipDate').textContent =
+  new Date().toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'});
+
+/* mobile drawer */
+const slipWrap = document.getElementById('slipWrap');
+document.getElementById('slipFab').onclick = ()=> slipWrap.classList.add('open');
+document.getElementById('slipClose').onclick = ()=> slipWrap.classList.remove('open');
+
+/* ============ reveal on scroll ============ */
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+renderMenu();
+renderSlip();
+</script>
+</body>
+</html>
